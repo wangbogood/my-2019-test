@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div   id='app'>
+        {{ msg }}
+        <todo-item v-bind:data="data" v-for="data in arr"></todo-item>  
+        <input type="text" v-model='msg'>
+        <button v-on:click='myClick'>点我</button>
+    </div>
+    <script src='./node_modules/vue/dist/vue.js'></script>
+    <script>
+        Vue.component('todo-item', {
+            props: ['data'],
+            template: '<li>{{data}}</li>'
+        })
+        var app1 = new Vue({
+            el:'#app',
+            data:{
+                msg:'我是app',
+                arr:[1,2,3],
+                eventName:'click'
+            },
+            methods:{
+                myClick(){
+                    alert(1)
+                }
+            }
+            // watch:{
+            //     msg:{
+            //         handler(newValue){
+            //            console.log('msg值改变了，新的值为----'+newValue)
+            //         },
+            //     }
+            // }
+        })
+        // app1.$watch('msg',(newValue)=>{console.log('我是$msg:'+newValue)})
+
+        app1.$watch('msg',function(){console.log(this)})
+
+        //不要用箭头函数 否则无法找到vue实例
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            Function.prototype.es3Call = function (context) {
+                var content = context || window;
+                content.fn = this;
+                console.log(arguments)
+                var args = [];
+                // arguments是类数组对象，遍历之前需要保存长度，过滤出第一个传参
+                for (var i = 1, len = arguments.length; i < len; i++) {
+                    // 避免object之类传入
+                    args.push('arguments[' + i + ']');
+                }
+                var result = eval('content.fn(' + args + ')');
+                delete content.fn;
+                return result;
+            }
+
+            // var arr = Array.prototype.slice.es3Call([1, 2, 3], 0, 1)
+            // console.log(arr)
+
+            var slice = Function.prototype.es3Call.bind(Array.prototype.slice);
+            // console.log(slice)
+            var arr = slice([1, 2, 3], 0, 1)
+            console.log(arr)
+
+
+
+            //最后简约代码 就相当于如下：
+
+            // Function.prototype.es3Call = function (obj,start,end) {
+                
+            //     slice(obj,start,end)
+
+            // }
+    </script>
+</body>
+</html>

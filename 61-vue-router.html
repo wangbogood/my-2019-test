@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
+    <script src='./node_modules/vue/dist/vue.js'></script>
+    <script src='./node_modules/vue-router/dist/vue-router.js'></script>
+</head>
+<body>
+    <div id='app'>       
+        <router-link to='/login'></router-link>
+        <router-link to='/home'></router-link>
+        <router-link to='/hello'></router-link>
+        <router-view></router-view>
+    </div>
+    <script>
+        var home = {
+            template:`<h1>主页home {{data}}</h1>`,
+            data(){
+                return {
+                    data:this.$route.params
+                }
+            },
+        };
+        var login = {
+            template:`<h1>登录login {{data}}</h1>`,
+            data(){
+                return {
+                    data:this.$route.query
+                }
+            }
+        }
+        var routes = [
+            {path:'/',component:home},
+            {path:'/home',component:home},
+            {path:'/home/:id',component:home},
+            {path:'/login',component:login},
+        ]
+        const router = new VueRouter({
+         routes // (缩写) 相当于 routes: routes
+        })
+        // Vue.use(VueRouter)
+        var vm = new Vue({
+            el:'#app',
+            router,
+            data:{
+
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function fn(){
+            arguments.pop()
+            console.log(arguments)
+        }
+        fn(1,2,3)
+
+        // function fn(){
+        //     arguments.pop()
+        //     console.log(arguments)
+        // }
+        // fn(1,2,3)
+
+        // function fn(){
+        //     console.log(Object.prototype.toString.call([].slice.call(arguments) ))
+        //     var a =  Array.from(arguments);
+        //     console.log(Object.prototype.toString.call(a ))
+        // }
+        // fn(1,2,3)
+
+        // var arr=[1,2,3,4,5,6,7,8];
+        // arr.pop();
+        // console.log(arr)
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //bind 会改变函数内部this 不会立即执行，返回一个绑定this的新函数 也可以事先绑定参数
+
+        // var obj = {
+        //     name:'马云'
+        // }
+        // var name = '我是全局window'
+        // function fn(){
+        //     console.log(this.name)
+        // }
+        // var newFn = fn.bind(obj)
+        // newFn()
+
+        var obj = {
+            name:'马化腾'
+        }
+        var name = '全局'
+        function fn(x,y) {
+            console.log(this.name+'------'+x+'======'+y)
+        }
+        Function.prototype.myBind = function(obj){
+            var that = this;
+            var waiArgs = [].slice.call(arguments,1);
+            function B(){
+                neiArgs = [].slice.call(arguments);
+                // console.log(waiArgs.concat(neiArgs))
+                // console.log([...waiArgs,...neiArgs])
+                that.apply(obj,waiArgs.concat(neiArgs))
+            }
+            return B
+        }
+        var fn1 = fn.myBind(obj,'腾讯的');
+        fn1('老板')
+
+    </script>
+</body>
+</html>

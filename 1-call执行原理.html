@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href=""></a>
+    <script>
+//         call方法 注意两点：
+
+            // call方法可以改变函数内的this指向,this指向调用的对象
+            // 会让函数执行
+
+                // var foo = {
+                //     value: 1,
+                //     fn: function () {
+                //         console.log(this.value)
+                //     }
+                // };
+
+                // foo.fn(); // 1
+
+                // 对象调用foo.fn 函数内部this就指向foo对象
+
+                // 经典问题
+                    
+
+                    function fn1() {
+                        console.log(1);
+                        //内部this由window变为fn2
+                    }
+                    function fn2() {
+                        console.log(2);
+                        //内部this指向window
+                        
+                    }
+
+                    // fn1.call(fn2);     //输出 1
+                    //执行步骤：1、fn1内代码执行
+                    //         2、并将作用域内this变为fn2,最后输出1
+
+
+                    fn1.call.call(fn2);  //输出 2
+                    //执行步骤：1、执行的代码是fn1.call函数内部代码
+                    //         2、将fn1.call函数内部的this改变为fn2，fn2执行所以输出fn2
+
+                    //总结当有一个call的时候改变的是函数内部this，多个call的时候改变的是call中的this
+
+
+
+
+
+        // call方法原理解析
+        Function.prototype.es3Call = function (context) {  //call第一个参数
+            // 1、Object本身是一个函数，可以当作工具方法使用，将任意值转为对象。这个方法常用于保证某个值一定是对象。
+            var content = Object(context) || window;  //2、保证传入的null和undefind的时候为全局作用域window
+            content.fn = this; //this表示call之前的函数
+            var args = [];
+            // arguments是类数组对象，遍历之前需要保存长度，过滤出第一个传参
+            for (var i = 1, len = arguments.length; i < len; i++) {
+                // 避免object之类传入
+                args.push('arguments[' + i + ']');
+            }
+            //args数组会默认调用toString()方法
+            var result = eval('content.fn(' + args + ')');
+            delete content.fn;
+            //所有函数都要有返回值
+            return result;
+        }
+    </script>
+</body>
+</html>

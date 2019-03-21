@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        //new内部新建一个对象，这个对象继承构造函数的原型属性，同时对象也继承构造函数的私有属性，最后将对象返回
+        
+        // function Person(age){
+        //     this.name = '中国人';
+        //     this.age = age;
+        // }
+        // Person.prototype.say = function(){
+        //     console.log('我爱中国')
+        // }
+        // var p = new Person(18);
+        // console.log(p.name);
+        // console.log(p.age);
+        // p.say();
+
+        function Person(age){
+            this.name = '中国人';
+            this.age = age;
+            // return {a:11}
+        }
+        Person.prototype.say = function(){
+            console.log('我爱中国.')
+        }
+        function mockNew(){
+            var obj = {};
+            var constructor = Array.prototype.slice.call(arguments)[0];
+            var args = Array.prototype.slice.call(arguments,1);
+            // obj.__proto__=constructor.prototype;
+            Object.setPrototypeOf(obj,constructor.prototype)
+            var r = constructor.apply(obj,args)
+            return typeof r === 'object' ? r:obj
+        }
+        var p = mockNew(Person,18);
+        console.log(p)
+        p.say()
+
+    </script>
+</body>
+</html>

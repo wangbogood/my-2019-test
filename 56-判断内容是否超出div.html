@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        .d1{width:200px;height:200px;background:#ddd;overflow:hidden}
+        .d2{background:#09f;line-height:40px;word-break: break-all;word-wrap: break-word;}
+    </style>
+</head>
+<body>
+
+        <div class="d1">
+            <div class="d2">
+                任意字符 * X
+            </div>
+
+        </div>
+
+    <script>
+        console.log($('.d2').height(),$('.d1').height())
+        // if($('.d2').height()>$('.d1').height()){
+        //     alert('超出了')
+        //     }else{
+        //     alert('还能写')
+        //     }
+    </script>
+</body>
+</html>

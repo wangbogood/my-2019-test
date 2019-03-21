@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src='./node_modules/vue/dist/vue.js'></script>
+<body>
+    <div id='app'>
+        <h1>双向绑定</h1>
+        <h5>input框</h5>
+        <input type="text"  v-model='qq'>
+        {{qq}}
+        <hr>
+        <input type="text" v-bind:value='ali' v-on:input='fn'>
+        {{ali}}
+        <hr>
+
+        <h5>下拉菜单</h5>
+        <select v-model='selectData'>
+            <option value="">请选择</option>
+            <option v-for='(item,index) in arr' :key='index' :value='"value"+item'>{{item}}</option>        
+        </select>
+        {{selectData}}
+        <hr>
+     
+        <h5>多选框</h5>
+        于谦爱好:
+        <br>
+        抽烟：<input v-model='yuqian' value='抽烟' type="checkbox"> 
+        喝酒：<input v-model='yuqian' value='喝酒' type="checkbox"> 
+        烫头：<input v-model='yuqian' value='烫头' type="checkbox">
+        {{ yuqian.length>0?yuqian:'' }}
+         <hr>
+
+         <h5>单选框</h5>
+         男：<input type="radio" v-model='sex' value='1'>
+         女：<input type="radio" v-model='sex' value='2'>
+         {{sex}}
+         <hr>
+
+         <h5>添加样式class</h5>
+         <div class='a' v-bind:class={b:true,c:true}></div>
+         <div class='w' v-bind:class=['a','n','g']></div>
+         <hr>
+         <h5>添加样式style</h5>
+         <div style='color: red' v-bind:style={'background':'blue','font-size':'30px'}>123</div>
+         
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                qq:'马化腾',
+                ali:'马云',
+                arr:[1,2,3,4],
+                selectData:'',
+                yuqian:[],
+                sex:''
+            },
+            methods: {
+                fn(e) {
+                     this.ali = e.target.value
+                 
+                }
+            }
+        })    
+       
+    </script>
+</body>
+</html>

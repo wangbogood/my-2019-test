@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id='box'>
+        <p><img src="https://www.baidu.com/img/bd_logo1.png" alt=""></p>
+        <p><img src="https://www.baidu.com/img/bd_logo1.png" alt=""></p>
+    </div>
+
+        
+
+    <script>
+                   var box = document.getElementById('box');
+                   var child = box.children;
+                   var arr = Array.prototype.slice.call(child);
+                 
+                   function next (item) {
+                        console.log(item)
+                        if (item.length) {
+                            console.log('长度----'+item.length)
+                            for (var i = 0; i < item.length || item.children.length; i++) {
+                                console.log(item[i])
+                                if (item[i].tagName === 'IMG') {
+                                    console.log('----------------')
+                                        // $(item[i]).addClass('my-img');               
+                                        return;
+                                }
+                                else
+                                {   
+                                    console.log('我是else')
+                                    next(Array.prototype.slice.call(item[i].children))
+                                }
+                            }
+                        }
+                    }
+                    next(arr)
+    </script>
+</body>
+</html>

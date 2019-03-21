@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app'>
+        {{ num }}
+        <button v-on:click='add'>按钮</button>
+    </div>
+    <script src='./node_modules/vue/dist/vue.js'></script>
+    <script src='./node_modules/vuex/dist/vuex.js'></script>
+    <script>
+
+        var store = new Vuex.Store({
+            state:{
+                num:0
+            },
+            mutations:{
+                addNum(state,payload){
+    
+                        state.num = state.num+payload
+  
+                   
+                }
+            }
+        })
+        var con = {
+            template :`<h1>hello vue</h1>`
+        }
+        var vm = new Vue({
+            el:'#app',
+            store,
+            // template:`<con/>`,
+            // components:{con},
+            computed: {
+                num () {
+                    return this.$store.state.num
+                }
+            },
+            methods:{
+                add(){
+                    this.$store.commit('addNum',10)
+                }
+            }
+        });
+        // console.log(this.store.state.num)
+
+   
+    </script>
+</body>
+</html>
