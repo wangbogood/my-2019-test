@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+        /* img {
+            min-height: 100px;
+        } */
+    </style>
+</head>
+<body>
+    <div id='box'>
+        <p>12312313</p>
+        <img id='img' >
+    </div>
+    <button id='btn'>按钮</button>
+    <script>
+
+
+        $(document).ready(function(){
+            function btn (){
+                $.ajax({url:"http://jsonplaceholder.typicode.com/photos",success:function(result){
+                    var data = result.slice(0,1);
+                    var src = data[0].url;
+                    var img = document.getElementById('img');
+                    img.setAttribute('src',src);
+                    console.log($('#img').height());
+                    // $("#div1").html(result);
+                }});
+            }
+            btn();
+            $('#btn').click(btn)
+
+                
+
+
+
+        });
+    </script>
+</body>
+</html>
