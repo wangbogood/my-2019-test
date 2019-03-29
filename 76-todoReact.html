@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Hello React!</title>
+<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+
+</head>
+<body>
+
+<div id="example"></div>
+<script type="text/babel">
+
+
+class Content extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            data:'',
+            arrNew:[1,2,3],
+            arrOld:[3,4,5]
+        }
+        this.submit = () => {
+            this.state.arrNew.push(this.state.data);
+            this.setState({
+                arrNew: this.state.arrNew
+            })
+        }
+        this.change = (e) => {
+          this.setState({
+              data:e.target.value
+          })
+        }
+        this.end = (item,index)=>{
+            this.state.arrNew.splice(index,1);
+            this.state.arrOld.push(item);
+            this.setState({
+                arrNew: this.state.arrNew,
+                arrOld: this.state.arrOld
+            })
+        }
+        this.removeNew = (index)=>{
+            this.state.arrNew.splice(index,1);
+            this.setState({
+                arrNew: this.state.arrNew,
+            })
+        }
+        this.removeOld = (index)=>{
+            this.state.arrOld.splice(index,1);
+            this.setState({
+                arrOld: this.state.arrOld,
+            })
+        }
+    }
+    render(){
+        return <div>
+                <input onChange={this.change}></input><button onClick={this.submit}>提交</button>
+                    <h3>未完成</h3>
+                {
+                    this.state.arrNew.map((item,index)=>{
+                      return (<div key={index}>
+                                    {item} <button onClick={()=>this.end(item,index)}>确认</button> <button onClick={()=>this.removeNew(index)}>删除</button>
+                              </div>)
+                    })
+                }
+                    <h3>已完成</h3>
+                    {
+                    this.state.arrOld.map((item,index)=>{
+                      return (<div key={index}>
+                                    {item} <button>确认</button> <button onClick={()=>this.removeOld(index)}>删除</button>
+                              </div>)
+                    })
+                }
+             </div>
+    }
+}
+
+class App extends React.Component {
+    constructor(props){
+        super(props);
+    }
+    render(){
+        return <div>
+                 <Content/>
+               </div>
+    }
+}
+
+ReactDOM.render(
+    <App/>,
+	document.getElementById('example')
+);
+</script>
+
+</body>
+</html>

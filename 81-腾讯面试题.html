@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 1. 实现一个div滑动的动画，由快至慢5s结束（不准用css3)。 -->
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box {
+            margin-top:150px;
+            width:100px;
+            height:100px;
+            background: skyblue;
+            border-radius: 50%;
+            position: relative;
+            left:0px;
+        }
+    </style>
+</head>
+<body>
+    <div id='box'></div>
+    <script>
+        function fn (ele,juli,time) {
+            var box = document.getElementById(ele);
+            var sum = 0;
+            var step
+            function add (juli) {
+                var current = box.offsetLeft;
+                var step = (juli-current)/10;
+              
+                step = step>0?Math.ceil(step):Math.floor(step);
+               
+                current = current + step
+                console.log(current+'=============='+step)
+                return current
+            }
+
+            var timerId = setInterval(function(){   
+ 
+                box.style.left = add(juli) + 'px';
+            },100)
+            setTimeout(function(){
+                clearInterval(timerId)
+            },time)
+
+        }
+        fn('box',300,7000)
+    </script>
+</body>
+</html>
