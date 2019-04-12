@@ -7,7 +7,7 @@ app.use(express.static('E:/wangbo/ai-web/'))
 app.use('/api/*', proxy({
     // app.use('/', proxy({
     // https://sp0.baidu.com/
-    target: 'http://10.16.87.152:8686',
+    target: 'http://10.16.87.131:8686',
     // target: 'http://47.100.16.144:8686',
     // target:'http://47.100.16.144:8686/',
     // target: 'https://sp0.baidu.com',

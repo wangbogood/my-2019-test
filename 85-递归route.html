@@ -16,12 +16,22 @@
                 { pid:-1,path:'/shop',name:'商店',id:2,auth:'shop'},
                 { pid: -1, path: '/profile', name: '个人中心', id: 3, auth: 'profile' },
             ]
+
+            // 传入-1 找到数组第一个数据 进入if语句 再次调用
+            // r函数 把id=1传递进去 再从新便利menulist找pid=1
+            // 的，找到之后再调用r函数 把id=4传入进去 再从新
+            // 便利menulist找到pid=4的，找到之后再调用r函数把
+            // id=5传入进去，再从新便利menulist之后找不到pid=5
+            // 然后再退回上一次循环（接着第三个pid=4）往下继
+            // 续循环，找到了之后在调用r把，id=6传入，再便
+            // 利menulist找不到pid=6的 再调回上一次循环
+            // （接着第四个pid=4）往下循环 后两个都为-1所以跳出r（4）接着 menulist找pid=1的 第二项往下继续便利
             
             let formatMenuList = (menuList) =>{
                 let arr = []; // [cart]
-                function r(pid){
+                function r(id){
                     return menuList.filter(menu=>{ // 格式化菜单变成我们需要的结果
-                    if(menu.pid === pid){
+                    if(menu.pid === id){
                         // arr.push(menu.auth); // 把后端返回的所有路径权限都放到数组中
                         let children = r(menu.id);
                         menu.children =children.length?children:null;
@@ -36,15 +46,7 @@
                console.log(qq)
 
 
-// 传入-1 找到数组第一个数据 进入if语句 再次调用
-// r函数 把id=1传递进去 再从新便利menulist找pid=1
-// 的，找到之后再调用r函数 把id=4传入进去 再从新
-// 便利menulist找到pid=4的，找到之后再调用r函数把
-// id=5传入进去，再从新便利menulist之后找不到pid=5
-// 然后再退回上一次循环（接着第三个pid=4）往下继
-// 续循环，找到了之后在调用r把，id=6传入，再便
-// 利menulist找不到pid=6的 再调回上一次循环
-// （接着第四个pid=4）往下循环
+
 
 
 
