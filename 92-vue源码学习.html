@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+            var _toString = Object.prototype.toString;
+
+            // 严格判断对象本身  不能伪数组 函数等
+            function isPlainObject(obj) {
+                return _toString.call(obj) === '[object Object]'
+            }
+            
+            function toString(val) {
+                return val == null
+                    ? ''
+                    : Array.isArray(val) || (isPlainObject(val) && val.toString === _toString)
+                        ? JSON.stringify(val, null, 2)
+                        : String(val)
+            }
+
+            console.log(toString({a:1}))
+    </script>
+</body>
+</html>
