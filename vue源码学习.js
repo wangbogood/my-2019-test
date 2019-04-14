@@ -127,6 +127,8 @@
    * Convert an input value to a number for persistence.
    * If the conversion fails, return original string.
    */
+
+  // 将输入值转换为数字。如果转换失败，则返回原始字符串。
   function toNumber (val) {
     var n = parseFloat(val);
     return isNaN(n) ? val : n
@@ -136,6 +138,7 @@
    * Make a map and return a function for checking if a key
    * is in that map.
    */
+  // 制作一个映射并返回一个函数，用于检查是否有一个键在映射上
   function makeMap (
     str,
     expectsLowerCase
@@ -152,16 +155,19 @@
 
   /**
    * Check if a tag is a built-in tag.
+   * 检查标记是否为内置标记。
    */
   var isBuiltInTag = makeMap('slot,component', true);
 
   /**
    * Check if an attribute is a reserved attribute.
+   * 检查属性是否为保留属性。
    */
   var isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
 
   /**
    * Remove an item from an array.
+   * 从数组中移除项
    */
   function remove (arr, item) {
     if (arr.length) {
@@ -174,6 +180,7 @@
 
   /**
    * Check whether an object has the property.
+   * 检查对象本身（不包括原型）是否具有属性。
    */
   var hasOwnProperty = Object.prototype.hasOwnProperty;
   function hasOwn (obj, key) {
@@ -182,6 +189,7 @@
 
   /**
    * Create a cached version of a pure function.
+   * 创建纯函数的缓存版本。
    */
   function cached (fn) {
     var cache = Object.create(null);
@@ -193,6 +201,7 @@
 
   /**
    * Camelize a hyphen-delimited string.
+   * 将以连字符分隔的字符串骆驼化。
    */
   var camelizeRE = /-(\w)/g;
   var camelize = cached(function (str) {
@@ -201,6 +210,7 @@
 
   /**
    * Capitalize a string.
+   * 将字符串首字母大写。
    */
   var capitalize = cached(function (str) {
     return str.charAt(0).toUpperCase() + str.slice(1)
