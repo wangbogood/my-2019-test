@@ -218,6 +218,7 @@
 
   /**
    * Hyphenate a camelCase string.
+   * 把驼峰命名改为my-von-ass以-链接
    */
   var hyphenateRE = /\B([A-Z])/g;
   var hyphenate = cached(function (str) {
@@ -230,9 +231,15 @@
    * since native bind is now performant enough in most browsers.
    * But removing it would mean breaking code that was able to run in
    * PhantomJS 1.x, so this must be kept for backward compatibility.
+   * 对于不支持它的环境，使用简单的绑定polyfill，例如，Phantomjs 1.x。从技术上讲，我们不再需要这个了。
+   * 因为在大多数浏览器中，本机绑定的性能已经足够了。但是删除它意味着破坏能够运行的代码
+   * PhantomJS 1.x，所以为了向后兼容，必须保留它。
    */
 
-  /* istanbul ignore next */
+  /* istanbul ignore next
+     解决bind兼容性
+  */
+
   function polyfillBind (fn, ctx) {
     function boundFn (a) {
       var l = arguments.length;
@@ -257,6 +264,7 @@
 
   /**
    * Convert an Array-like object to a real Array.
+   * 将伪数组的对象转换为真数组。
    */
   function toArray (list, start) {
     start = start || 0;
@@ -270,6 +278,7 @@
 
   /**
    * Mix properties into target object.
+   * 将属性混合到目标对象中
    */
   function extend (to, _from) {
     for (var key in _from) {
@@ -280,6 +289,7 @@
 
   /**
    * Merge an Array of Objects into a single Object.
+   * 将对象数组合并为单个对象
    */
   function toObject (arr) {
     var res = {};
@@ -291,7 +301,7 @@
     return res
   }
 
-  /* eslint-disable no-unused-vars */
+  /* eslint-disable no-unused-vars , eslint禁用没有未使用的var*/
 
   /**
    * Perform no operation.
@@ -302,18 +312,23 @@
 
   /**
    * Always return false.
+   * 总是返回false
    */
   var no = function (a, b, c) { return false; };
 
-  /* eslint-enable no-unused-vars */
+  /* eslint-enable no-unused-vars
+     eslint不启用未使用的var
+  */
 
   /**
    * Return the same value.
+   * 返回相同的值
    */
   var identity = function (_) { return _; };
 
   /**
    * Generate a string containing static keys from compiler modules.
+   * 从编译器模块生成包含静态键的字符串
    */
   function genStaticKeys (modules) {
     return modules.reduce(function (keys, m) {
@@ -324,6 +339,7 @@
   /**
    * Check if two values are loosely equal - that is,
    * if they are plain objects, do they have the same shape?
+   * 判断两个值是否相等
    */
   function looseEqual (a, b) {
     if (a === b) { return true }
@@ -364,6 +380,8 @@
    * Return the first index at which a loosely equal value can be
    * found in the array (if value is a plain object, the array must
    * contain an object of the same shape), or -1 if it is not present.
+   * 返回第一个索引，其中松散相等的值可以是在数组中找到（如果值是普通对象，则数组必须
+   * 包含相同形状的对象），如果不存在则为-1。
    */
   function looseIndexOf (arr, val) {
     for (var i = 0; i < arr.length; i++) {
@@ -374,6 +392,7 @@
 
   /**
    * Ensure a function is called only once.
+   * 确保只调用一次函数
    */
   function once (fn) {
     var called = false;
@@ -393,6 +412,7 @@
     'filter'
   ];
 
+  //生命周期钩子
   var LIFECYCLE_HOOKS = [
     'beforeCreate',
     'created',
@@ -421,41 +441,49 @@
 
     /**
      * Whether to suppress warnings.
+     * 是否取消警告
      */
     silent: false,
 
     /**
      * Show production mode tip message on boot?
+     * 启动时显示生产模式提示消息？
      */
     productionTip: "development" !== 'production',
 
     /**
      * Whether to enable devtools
+     * 是否启动devtools
      */
     devtools: "development" !== 'production',
 
     /**
      * Whether to record perf
+     * 是否记录性能
      */
     performance: false,
 
     /**
      * Error handler for watcher errors
+     * 观察程序错误的错误处理程序
      */
     errorHandler: null,
 
     /**
      * Warn handler for watcher warns
+     * 观察者警告的警告处理程序
      */
     warnHandler: null,
 
     /**
      * Ignore certain custom elements
+     * 忽略某些自定义元素
      */
     ignoredElements: [],
 
     /**
      * Custom user key aliases for v-on
+     * v-on的自定义用户密钥别名
      */
     // $flow-disable-line
     keyCodes: Object.create(null),
@@ -463,45 +491,53 @@
     /**
      * Check if a tag is reserved so that it cannot be registered as a
      * component. This is platform-dependent and may be overwritten.
+     * 检查是否保留了标记，以便它不能注册为组件。这取决于平台，可能会被覆盖
      */
     isReservedTag: no,
 
     /**
      * Check if an attribute is reserved so that it cannot be used as a component
      * prop. This is platform-dependent and may be overwritten.
+     * 检查是否保留了属性，以便它不能用作组件属性。这取决于平台，可能会被覆盖。
      */
     isReservedAttr: no,
 
     /**
      * Check if a tag is an unknown element.
      * Platform-dependent.
+     * 检查标记是否为未知元素。取决于平台。
      */
     isUnknownElement: no,
 
     /**
      * Get the namespace of an element
+     * 获取元素的命名空间
      */
     getTagNamespace: noop,
 
     /**
      * Parse the real tag name for the specific platform.
+     * 分析特定平台的真正标记名。
      */
     parsePlatformTagName: identity,
 
     /**
      * Check if an attribute must be bound using property, e.g. value
      * Platform-dependent.
+     * 检查是否必须使用属性（例如值）绑定属性取决于平台。
      */
     mustUseProp: no,
 
     /**
      * Perform updates asynchronously. Intended to be used by Vue Test Utils
      * This will significantly reduce performance if set to false.
+     * 异步执行更新。用于Vue测试实用程序如果设置为false，这将显著降低性能
      */
     async: true,
 
     /**
      * Exposed for legacy reasons
+     * 因遗留原因暴露
      */
     _lifecycleHooks: LIFECYCLE_HOOKS
   });
@@ -510,6 +546,7 @@
 
   /**
    * unicode letters used for parsing html tags, component names and property paths.
+   * 用于分析HTML标记、组件名称和属性路径的Unicode字母。
    * using https://www.w3.org/TR/html53/semantics-scripting.html#potentialcustomelementname
    * skipping \u10000-\uEFFFF due to it freezing up PhantomJS
    */
@@ -517,6 +554,7 @@
 
   /**
    * Check if a string starts with $ or _
+   * 检查字符串是否以$或开头_
    */
   function isReserved (str) {
     var c = (str + '').charCodeAt(0);
@@ -525,6 +563,7 @@
 
   /**
    * Define a property.
+   * 定义属性
    */
   function def (obj, key, val, enumerable) {
     Object.defineProperty(obj, key, {
@@ -537,6 +576,7 @@
 
   /**
    * Parse simple path.
+   * 解析简单路径
    */
   var bailRE = new RegExp(("[^" + (unicodeRegExp.source) + ".$_\\d]"));
   function parsePath (path) {
@@ -555,7 +595,7 @@
 
   /*  */
 
-  // can we use __proto__?
+  // can we use __proto__?   // 如果为false为  ie 浏览器
   var hasProto = '__proto__' in {};
 
   // Browser environment sniffing
@@ -573,8 +613,11 @@
   var isFF = UA && UA.match(/firefox\/(\d+)/);
 
   // Firefox has a "watch" function on Object.prototype...
+  // 火狐在原型对象上有一个“监视”功能。
   var nativeWatch = ({}).watch;
-
+  
+  // passive: Boolean，设置为true时，表示 listener 永远不会调用 preventDefault()。
+  // 如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
   var supportsPassive = false;
   if (inBrowser) {
     try {
@@ -588,9 +631,11 @@
       window.addEventListener('test-passive', null, opts);
     } catch (e) {}
   }
+  
 
   // this needs to be lazy-evaled because vue may be required before
   // vue-server-renderer can set VUE_ENV
+  // 这需要懒惰地逃避，因为之前可能需要Vue.//Vue服务器渲染器可以设置Vue_env
   var _isServer;
   var isServerRendering = function () {
     if (_isServer === undefined) {
@@ -606,7 +651,7 @@
     return _isServer
   };
 
-  // detect devtools
+  // detect devtools 检测工具
   var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
 
   /* istanbul ignore next */
@@ -645,10 +690,10 @@
 
   /*  */
 
-  var warn = noop;
-  var tip = noop;
-  var generateComponentTrace = (noop); // work around flow check
-  var formatComponentName = (noop);
+  var warn = noop;//警告
+  var tip = noop; // 提示
+  var generateComponentTrace = (noop); // work around flow check  生成组件跟踪
+  var formatComponentName = (noop);  //格式组件名称
 
   {
     var hasConsole = typeof console !== 'undefined';
@@ -744,33 +789,38 @@
   /**
    * A dep is an observable that can have multiple
    * directives subscribing to it.
+   * DEP是一个可观测的，可以有多个订阅它的指令。
    */
+
+   // 被观察者
   var Dep = function Dep () {
     this.id = uid++;
     this.subs = [];
   };
-
+  //添加观察者
   Dep.prototype.addSub = function addSub (sub) {
     this.subs.push(sub);
   };
-
+  //删除观察者
   Dep.prototype.removeSub = function removeSub (sub) {
     remove(this.subs, sub);
   };
-
+  //依赖
   Dep.prototype.depend = function depend () {
     if (Dep.target) {
       Dep.target.addDep(this);
     }
   };
-
+  //通知观察者
   Dep.prototype.notify = function notify () {
     // stabilize the subscriber list first
+    // 先浅拷贝一个观察者列表
     var subs = this.subs.slice();
     if (!config.async) {
       // subs aren't sorted in scheduler if not running async
       // we need to sort them now to make sure they fire in correct
       // order
+      // 如果同步会对 观察者进行id排序
       subs.sort(function (a, b) { return a.id - b.id; });
     }
     for (var i = 0, l = subs.length; i < l; i++) {
@@ -781,21 +831,23 @@
   // The current target watcher being evaluated.
   // This is globally unique because only one watcher
   // can be evaluated at a time.
+  // 正在评估的当前目标观察程序。这是全局唯一的，因为一次只能评估一个观察者。
   Dep.target = null;
+  //目标栈
   var targetStack = [];
-
+  //添加目标
   function pushTarget (target) {
     targetStack.push(target);
     Dep.target = target;
   }
-
+  //删除目标
   function popTarget () {
     targetStack.pop();
     Dep.target = targetStack[targetStack.length - 1];
   }
 
   /*  */
-
+ 
   var VNode = function VNode (
     tag,
     data,
@@ -834,11 +886,12 @@
   var prototypeAccessors = { child: { configurable: true } };
 
   // DEPRECATED: alias for componentInstance for backwards compat.
+  // 已弃用：用于向后兼容的componentInstance的别名。
   /* istanbul ignore next */
   prototypeAccessors.child.get = function () {
     return this.componentInstance
   };
-
+  //Object.defineProperties() 方法直接在一个对象上定义新的属性或修改现有属性，并返回该对象。
   Object.defineProperties( VNode.prototype, prototypeAccessors );
 
   var createEmptyVNode = function (text) {
@@ -858,6 +911,8 @@
   // used for static nodes and slot nodes because they may be reused across
   // multiple renders, cloning them avoids errors when DOM manipulations rely
   // on their elm reference.
+  // 优化的浅克隆用于静态节点和槽节点，因为它们可以跨多个渲染重用，克隆它们可以避免在DOM操作依赖于ELM引用时出错。
+
   function cloneVNode (vnode) {
     var cloned = new VNode(
       vnode.tag,
@@ -887,10 +942,12 @@
   /*
    * not type checking this file because flow doesn't play well with
    * dynamically accessing methods on Array prototype
+   * 不检查此文件的类型，因为流不能很好地处理数组原型上的动态访问方法
    */
-
+  //Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。 
   var arrayProto = Array.prototype;
   var arrayMethods = Object.create(arrayProto);
+  
 
   var methodsToPatch = [
     'push',
@@ -903,10 +960,10 @@
   ];
 
   /**
-   * Intercept mutating methods and emit events
+   * Intercept mutating methods and emit events 截获突变方法并发出事件
    */
   methodsToPatch.forEach(function (method) {
-    // cache original method
+    // cache original method 缓存原始方法
     var original = arrayProto[method];
     def(arrayMethods, method, function mutator () {
       var args = [], len = arguments.length;
@@ -938,6 +995,7 @@
   /**
    * In some cases we may want to disable observation inside a component's
    * update computation.
+   * 在某些情况下，我们可能希望在组件的更新计算中禁用观察
    */
   var shouldObserve = true;
 
@@ -950,21 +1008,41 @@
    * object. Once attached, the observer converts the target
    * object's property keys into getter/setters that
    * collect dependencies and dispatch updates.
+   * 附加到每个被观察对象的观察者类。一旦连接，观察者就将目标对象的属性
+   * 键转换为收集依赖项和调度更新的getter/setter
    */
   var Observer = function Observer (value) {
     this.value = value;
-    this.dep = new Dep();
+    this.dep = new Dep();  // new Dep 一次 uid加一次
     this.vmCount = 0;
     def(value, '__ob__', this);
-    if (Array.isArray(value)) {
+    // function def (obj, key, val, enumerable) {
+    //   Object.defineProperty(obj, key, {
+    //     value: val,
+    //     enumerable: !!enumerable,
+    //     writable: true,
+    //     configurable: true
+    //   });
+    // }
+    if (Array.isArray(value)) {  //如果是数组则执行
       if (hasProto) {
         protoAugment(value, arrayMethods);
+        //让对象继承 数组的方法   
+        // function protoAugment (target, src) {
+        //   target.__proto__ = src;
+        // }
       } else {
         copyAugment(value, arrayMethods, arrayKeys);
+        // function copyAugment (target, src, keys) {
+        //   for (var i = 0, l = keys.length; i < l; i++) {
+        //     var key = keys[i];
+        //     def(target, key, src[key]);
+        //   }
+        // }
       }
       this.observeArray(value);
     } else {
-      this.walk(value);
+      this.walk(value);  //如果是对象则执行
     }
   };
 
@@ -972,6 +1050,7 @@
    * Walk through all properties and convert them into
    * getter/setters. This method should only be called when
    * value type is Object.
+   * 遍历所有属性并将其转换为getter/setter。仅当值类型为“对象”时才应调用此方法
    */
   Observer.prototype.walk = function walk (obj) {
     var keys = Object.keys(obj);
@@ -982,6 +1061,7 @@
 
   /**
    * Observe a list of Array items.
+   * 观察数组项列表
    */
   Observer.prototype.observeArray = function observeArray (items) {
     for (var i = 0, l = items.length; i < l; i++) {
@@ -994,6 +1074,7 @@
   /**
    * Augment a target Object or Array by intercepting
    * the prototype chain using __proto__
+   * 通过截取原型链来增强目标对象或阵列__
    */
   function protoAugment (target, src) {
     /* eslint-disable no-proto */
@@ -1004,6 +1085,7 @@
   /**
    * Augment a target Object or Array by defining
    * hidden properties.
+   * 通过定义隐藏属性来扩充目标对象或数组。
    */
   /* istanbul ignore next */
   function copyAugment (target, src, keys) {
@@ -1017,20 +1099,22 @@
    * Attempt to create an observer instance for a value,
    * returns the new observer if successfully observed,
    * or the existing observer if the value already has one.
+   * 尝试为值创建观察者实例，如果观察成功，则返回新的观察者，或者现有的观察者（如果该值已经有一个）
    */
   function observe (value, asRootData) {
-    if (!isObject(value) || value instanceof VNode) {
+    if (!isObject(value) || value instanceof VNode) {  // 不是对象退出
       return
     }
     var ob;
     if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
-      ob = value.__ob__;
+      ob = value.__ob__; // __ob__ 为观察者实例
     } else if (
       shouldObserve &&
       !isServerRendering() &&
       (Array.isArray(value) || isPlainObject(value)) &&
       Object.isExtensible(value) &&
       !value._isVue
+      //Object.isExtensible() 方法判断一个对象是否是可扩展的（是否可以在它上面添加新的属性）。
     ) {
       ob = new Observer(value);
     }
@@ -10622,7 +10706,7 @@
     getTagNamespace: getTagNamespace,
     staticKeys: genStaticKeys(modules$1)
   };
-
+ 
   /*  */
 
   var isStaticKey;

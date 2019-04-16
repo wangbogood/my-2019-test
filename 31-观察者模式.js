@@ -35,6 +35,8 @@ var s = new Subject()
 var o1 = new Observer('淘宝')
 var o2 = new Observer('蚂蚁金服')
 var o3 = new Observer('支付宝')
+console.log(o3)
+
 s.add(o1)
 s.add(o2)
 s.add(o3)

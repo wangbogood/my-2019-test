@@ -1,16 +1,11 @@
-function cached (fn) {
-    var cache = Object.create(null);
-    return (function cachedFn (str) {
-      var hit = cache[str];
-      return hit || (cache[str] = fn(str))
-    })
-  }
-
-
-  var camelizeRE = /6/g;
-  var camelize = cached(function (str) {
-    return str.replace(camelizeRE, function () { console.log(arguments) })
+function def (obj, key, val, enumerable) {
+  return Object.defineProperty(obj, key, {
+    value: val,
+    enumerable: !!enumerable,
+    writable: true,
+    configurable: true
   });
-  
-  var res = camelize('my6asd6fdg6fgyfg')
-//   console.log(res)
+}
+var obj = {}
+console.log(def(obj,'qq',function ma(){console.log(123)}))
+console.log(obj)
