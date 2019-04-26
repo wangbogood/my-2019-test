@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+        <div id="example"></div>
+        <script type="text/babel">
+                // var element = (
+                //     <div className='qq'>
+                //         我是文本
+                //         <p className='wang' style={{color:'red'}}>666</p>
+                //         <h1>react</h1>
+                //     </div>
+                // )
+  
+
+                    //jsx 解析成createElement 然后返回 js对象
+
+                // const element = React.createElement("h1", {
+                //     className: "title",
+                //     style: {
+                //     color: 'red',
+                //     fontSize: '50px'
+                //     }
+                // }, "hello", React.createElement("span", null, "world"));
+
+
+                function Welcome(props){
+                    return <h1>hello   8888</h1>
+                    }
+                // let element = <Welcome name="zhufeng"/>;
+                // var element = React.createElement(Welcome, {name: "zhufeng"});
+                // var element = Welcome()
+                console.log(element)
+                ReactDOM.render(
+                    element,
+                    document.getElementById('example')
+                );
+        </script>
+         
+</body>
+</html>
+

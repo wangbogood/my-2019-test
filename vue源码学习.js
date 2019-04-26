@@ -1135,7 +1135,7 @@
     shallow
   ) {
     var dep = new Dep();
-
+    //方法返回指定对象上一个自有属性对应的属性描述符
     var property = Object.getOwnPropertyDescriptor(obj, key);
     if (property && property.configurable === false) {
       return
