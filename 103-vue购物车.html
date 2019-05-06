@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            margin: 0 auto;
+        }
+        thead{
+            background: skyblue;
+        }
+        thead th{
+            padding:5px 20px;
+        }
+    </style>
+</head>
+<script src='./node_modules/vue/dist/vue.js'></script>
+<body>
+    <div  id='app'>
+        <div class='box'>
+            <table>
+                <thead>
+                    <th><input type="checkbox" v-model='allChecked' @click='allBtn()'></th>
+                    <th>序号</th>
+                    <th>商品</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>操作</th>
+                </thead>
+                <tbody v-for='(item,index) in list'>
+                    <th><input type="checkbox" v-model='item.checked' v-on:click='changeCheck(item.id,item)'></th>
+                    <th>{{item.id}}</th>
+                    <th>{{item.name}}</th>
+                    <th>{{item.price}}</th>
+                    <th><button v-on:click='jian(item.id)'>-</button>{{item.count}}<button v-on:click='add(item.id)'>+</button></th>
+                    <th><button v-on:click='remove(index)'>删除</button></th>
+                </tbody>
+            </table>
+            <h4>总价格：{{sum}}</h4>
+        </div>
+    </div>
+    <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {     
+                    allChecked:false,       
+                    list: [
+                        {
+                            id: 1,
+                            name: '韩国进口海牌海苔',
+                            price: 39.9,
+                            count: 1
+                        },
+                        {
+                            id: 2,
+                            name: '印尼进口 Nabati 丽巧克（Richoco）休闲零食 巧克力味 威化饼干',
+                            price: 11.8,
+                            count: 1
+                        },
+                        {
+                            id: 3,
+                            name: '菲律宾进口 道吉草 奶油夹',
+                            price: 6.5,
+                            count: 1
+                        }
+                    ],
+                    arr:[]
+                },
+                methods:{
+                    jian(id){
+                        var res = this.list.filter((item,index)=>{
+                            return item.id === id
+                        })
+                        res[0].price--
+                    },
+                    add(id){
+                        var res = this.list.filter((item,index)=>{
+                            return item.id === id
+                        })
+                        res[0].price++
+                    },
+                    remove(index){
+                        this.list.splice(index,1)
+                    },
+                    changeCheck(id,one){
+                        var item = this.list.filter((item,index)=>{
+                            return item.id === id
+                        })[0].checked ;
+                        item = !item;
+
+                     
+                        setTimeout(()=>{
+                            if(item){
+                            this.arr.push(one)
+                            } else {
+                                // this.arr.forEach((i,index)=>{
+                                //     if(i.id === id){
+                                //         this.arr.splice(index,1)
+                                //     }
+                                // })     
+                                this.arr = this.arr.filter((item, index) => {
+                                    return item.id != id
+                                })
+                            }
+                            var isAll = this.list.every(function (i) {
+                                return i.checked === true
+                            })
+
+                            if (isAll) {
+                                this.allChecked = true;
+                            } else {
+                                this.allChecked = false;
+                            }
+                        })               
+                    },
+                    allBtn(){
+                        this.list.forEach((item)=>{
+                            item.checked = !this.allChecked
+                        })
+                        setTimeout(()=>{
+                            this.allChecked?this.arr = this.list : this.arr = []
+                        })
+                    }
+                },
+                computed:{
+                    sum(){    
+                       var qq= this.arr.map((item)=>{
+                           return item.price
+                       })
+            
+                       return qq.length>0 ? qq.reduce((total,pre)=>{ 
+                                    
+                          return total + pre
+                        }):0
+                    }
+                },
+                created(){
+                    this.list.forEach((item)=>{
+                        item.checked = false
+                    })
+                }
+
+
+
+
+            })
+    </script>
+</body>
+</html>

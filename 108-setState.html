@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+            class Clock extends React.Component{
+                constructor(){
+                    super()
+                    this.state = {num:0}
+                }
+                add=(parmas)=>{
+                    //单个setState  异步更新
+                    // this.setState({
+                    //     num:this.state.num+1
+                    // })
+                    // console.log(this.state.num)
+
+                    //单个setState 同步更新
+                    // this.setState((prevState, props) => ({
+                    //         num: prevState.num +1
+                    //     }),function(){
+                    //         console.log(this.state.num)
+                    //     });
+                       
+                    // 多个setState 会合并(只执行最后一个) 并且是异步的
+                    // this.setState({num:this.state.num+1})
+                    // console.log(this.state.num)
+                    // this.setState({num:this.state.num+3})
+                    // console.log(this.state.num)
+                    // this.setState({num:this.state.num+2})
+                    // console.log(this.state.num)
+
+                    // 多个setState 会累加   先执行最外侧的console.log(this.state.num) ===》  在执行所有的第一个回调 ===》  在执行所有的第二个回调
+                //    this.setState((prevState, props) => ({
+                //             num: prevState.num +1
+                //         }),function(){
+                //             console.log('1----'+this.state.num)
+                //         });
+                //     console.log(this.state.num) //外侧打印依旧是异步的
+                //     this.setState((prevState, props) => ({
+                //         num: prevState.num +1
+                //     }),function(){
+                //         console.log('2----'+this.state.num)
+                //     });
+                //     console.log(this.state.num)
+                //     this.setState((prevState, props) => ({
+                //         num: prevState.num +1
+                //     }),function(){
+                //         console.log('3----'+this.state.num)
+                //     });
+                //     console.log(this.state.num)
+
+
+                    //要想每次都同步就用回调嵌套回调
+                // this.setState((prevState, props) => ({
+                //             num: prevState.num +1
+                //         }),function(){
+                //             console.log('1----'+this.state.num);
+                //             this.setState((prevState, props) => ({
+                //             num: prevState.num +1
+                //         }),function(){
+                //             console.log('2----'+this.state.num)
+                //             this.setState((prevState, props) => ({
+                //             num: prevState.num +1
+                //         }),function(){
+                //             console.log('3----'+this.state.num)
+                //         });
+                //         });
+                //         });
+
+                    // 多个也会合并 （执行最后一个）
+                    //  this.setState({num:this.state.num+4})     
+                    //  setTimeout(() => {
+                    //        console.log(this.state.num)
+                    //  });
+                    //  this.setState({num:this.state.num+5})     
+                    //  setTimeout(() => {
+                    //        console.log(this.state.num)
+                    //  });
+
+                }
+                render(){
+                    return (
+                        <div>
+                            <p>{this.state.num}</p>
+                            <button onClick={()=>this.add(1)}>按钮</button>
+                        </div>
+                        )
+                }
+            }
+            ReactDOM.render(<Clock/>,document.getElementById('example'))
+        </script>
+    <script>
+
+    </script>
+
+</body>
+
+</html>

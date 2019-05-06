@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Parent {
+            constructor(){
+                this.name = '我是爸爸'
+            }
+            add(){
+                console.log('my is add')
+            }
+        }
+        class Son extends Parent{ 
+            constructor(){
+                super()
+                this.name = '我是儿子'
+            }
+        }
+        var son = new Son()
+        console.log(son)
+    </script>
+<!-- 
+    <script>
+        function Parent(){
+            this.name = 'woshi baba'
+        }
+        Parent.prototype.add = function(){console.log('woshi add')}
+        function Son(){
+            this.name1 ='woshi erzi '
+            Parent.call(this)
+        }
+        Son.prototype = new Parent();
+        var son = new Son()
+        console.log(son)
+
+    </script> -->
+</body>
+</html>

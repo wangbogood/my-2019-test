@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+            class Clock extends React.Component{
+                constructor(){
+                    super()
+                    this.numA = React.createRef()
+                    this.numB = React.createRef()
+                    this.numC = React.createRef()
+                    console.log(this)
+                }
+                // add(){
+                //     this.a = this.refs.numA.value
+                //     this.b = this.refs.numB.value
+                //     this.refs.numC.value = Number(this.a)+Number(this.b)
+                // }
+                // render(){
+                //     return (
+                //         <div>
+                //            <input ref='numA'/>+<input ref='numB'/>=<input ref='numC'/>
+                //            <button onClick={()=>{this.add()}}>按钮</button>
+                //         </div>
+                //         )
+                // }
+
+
+
+                // add(){
+                    
+                //     this.a = this.numA.value
+                //     this.b = this.numB.value
+                //     this.numC.value = Number(this.a)+Number(this.b)
+                // }
+                // render(){
+                //     return (
+                //         <div>
+                //            <input ref={res=>this.numA = res}/>+<input ref={res=>this.numB = res}/>=<input ref={res=>this.numC = res}/>
+                //            <button onClick={()=>{this.add()}}>按钮</button>
+                //         </div>
+                //         )
+                // }
+
+
+                add(){  
+                    this.numC.current.value =  Number(this.numA.current.value) +  Number(this.numB.current.value)
+                }
+                render(){
+                    return (
+                        <div>
+                           <input ref={this.numA}/>+<input ref={this.numB}/>=<input ref={this.numC}/>
+                           <button onClick={()=>{this.add()}}>按钮</button>
+                        </div>
+                        )
+                }
+
+
+            }
+            ReactDOM.render(<Clock/>,document.getElementById('example'))
+        </script>
+    <script>
+
+    </script>
+
+</body>
+
+</html>

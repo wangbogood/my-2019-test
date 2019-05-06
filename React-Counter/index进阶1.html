@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <div id='root'>
+        
+    </div>
+    <div id='con'></div>
+    <script>
+            class Counter {
+                constructor(){
+                    this.state = {num:0}
+                }
+                getElement(ele){
+                    var div = document.createElement('div');
+                    div.innerHTML = ele;
+                    return div.children[0];
+                    
+                }
+                increment(){
+                        this.state.num++;
+                        var old = this.Dom;
+                        var new1 = this.render();
+                        old.parentElement.replaceChild(new1,old)
+                }
+                render(){
+                    this.Dom = this.getElement(`
+                        <button>
+                            ${this.state.num}
+                        </button>
+                        `);
+                    this.Dom.addEventListener('click',this.increment.bind(this))
+                    return this.Dom;
+                }
+
+            }
+    </script>
+    <script>
+        var root = document.getElementById('root');
+        // var con = document.getElementById('con');
+        root.appendChild(new Counter().render())
+        // con.appendChild(new Counter().render())
+    </script>
+
+</body>
+</html>

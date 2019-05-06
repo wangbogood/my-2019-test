@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <div id='root'>
+        
+    </div>
+    <div id='con'></div>
+    <script>
+            window.tagger = function(event,method){
+                // console.log(event,method)
+                let component = event.target.component;
+                component[method]()
+            }
+            class Component {
+                constructor(){
+          
+                }
+                getElement(ele){
+                    var div = document.createElement('div');
+                    div.innerHTML = ele;
+                    return div.children[0];
+                    
+                }
+                setState(partialState){
+                        this.state = Object.assign(this.state,partialState)
+                        var old = this.element;
+                        var new1 = this.childDom();
+                        old.parentElement.replaceChild(new1,old)
+                }
+                childDom(){
+                    this.stringDom = this.render();
+                    this.element = this.getElement(this.stringDom);
+                    this.element.component  = this;
+                    return this.element
+                }
+                mount(root){
+                    root.appendChild(this.childDom())
+                }
+            }
+            class Counter extends Component{
+                constructor(){
+                    super()
+                    this.state = {num:0,age:18}
+                }
+                increment(){
+                    this.setState({num:this.state.num+1})
+                    console.log(this.state.num)
+                    this.setState({num:this.state.num+1})
+                    console.log(this.state.num)
+            
+                }
+                render(){
+                    return (
+                        `<button onclick='tagger(event,"increment")'>
+                            ${this.state.num}
+                        </button>`
+                    )
+                }
+
+            }
+    </script>
+    <script>
+        var root = document.getElementById('root');
+        new Counter().mount(root)
+        // var con = document.getElementById('con');
+        // root.appendChild(new Counter().render())
+        // con.appendChild(new Counter().render())
+    </script>
+
+</body>
+</html>
