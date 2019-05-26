@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #innerCon{
+            width: 600px;
+            height:300px;
+            border: 2px solid skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div id='innerCon'>
+        我是iframe 以下内容为父传过来的：
+        <p id='p1'>
+            
+        </p>
+    </div>
+
+    <script>
+window.onload = function(){
+    var p1 = document.getElementById('p1');
+    var innerCon = document.getElementById('innerCon');
+                window.addEventListener("message", function (e) {
+                    p1.innerHTML = e.data.data;
+                    p1.style.color = e.data.color||'blue';
+                    p1.style.fontSize = e.data.fontSize + 'px'
+                    window.parent.postMessage('哈喽啊我是 儿子 给父亲传递的数据哦','http://127.0.0.1:5500/120-iframe.html')
+                });
+
+}
+                
+      
+
+    </script>
+</body>
+</html>

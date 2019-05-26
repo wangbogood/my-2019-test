@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #innerCon{
+            width: 600px;
+            height:300px;
+            border: 2px solid skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div id='innerCon'>
+        我是iframe 
+ 
+    </div>
+
+    <script>
+window.onload = function(){
+    var p1 = document.getElementById('p1');
+    var innerCon = document.getElementById('innerCon');
+    window.postMessage('就一个页面自己给自己传','http://127.0.0.1:5500/122-一个页面的postMessage.html')
+    window.addEventListener("message", function (e) {
+        console.log(e)
+    });
+
+}
+                
+      
+
+    </script>
+</body>
+</html>

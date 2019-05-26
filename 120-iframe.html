@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width:1000px;
+            height:600px;
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+        #ifm{
+            width:600px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id='box'>
+        <p id='p1'></p>
+        <button id='btn'>换颜色</button>
+        <iframe id='ifm' src="http://127.0.0.1:5500/121-content.html" frameborder="0"></iframe>
+    </div>
+    <script>
+    window.onload = function(){
+        var box = document.getElementById('box');
+        var ifm = document.getElementById('ifm');
+        var p1 = document.getElementById('p1');
+        var btn = document.getElementById('btn');
+        var data = {data:'我是你爸爸',fontSize:12}
+        btn.onclick = function(){
+            data.color = 'orange';
+            data.fontSize =  data.fontSize + 1 
+            ifm.contentWindow.postMessage(data,"http://127.0.0.1:5500/121-content.html")
+        }
+        ifm.contentWindow.postMessage(data,"http://127.0.0.1:5500/121-content.html")
+        window.addEventListener('message',function(e){
+            p1.innerHTML = e.data
+        })
+         }
+    </script>
+</body>
+</html>

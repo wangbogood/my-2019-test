@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 函数声明优先级比var声明高
+        alert(a);
+        a();
+        var a =3;
+        function a(){
+            alert(10);
+        }        
+        alert(a);
+        a=6;
+        a();
+  
+
+        // * var a
+        //  * function a(){alert(10)}
+        //  * alert(a)
+        //  * a()
+        //  * a=3
+        //  * alert(a)
+        //  * a=6
+        //  * a()
+ 
+//alert(function a(){alert(10)}) alert(10) alert(3)  a id not a function
+
+
+
+    </script>
+</body>
+</html>
